@@ -1,6 +1,8 @@
 package com.usuario.usuario.infrastructure.exceptionhandler;
 
 import com.usuario.usuario.infrastructure.exception.NoDataFoundException;
+import com.usuario.usuario.infrastructure.exception.ObjetNotFoundException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -20,5 +22,12 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.NO_DATA_FOUND.getMessage()));
     }
-    
+
+    @ExceptionHandler(ObjetNotFoundException.class)
+    public ResponseEntity<Map<String, String>> objetcNoDataFoundException(
+            ObjetNotFoundException ignoredNoDataFoundException) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Collections.singletonMap(MESSAGE, ignoredNoDataFoundException.getMessage()));
+    }
+
 }

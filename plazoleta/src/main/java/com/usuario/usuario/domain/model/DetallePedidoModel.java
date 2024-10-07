@@ -1,7 +1,6 @@
 package com.usuario.usuario.domain.model;
 
 import com.usuario.usuario.infrastructure.out.jpa.entity.Pedido;
-import com.usuario.usuario.infrastructure.out.jpa.entity.Plato;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

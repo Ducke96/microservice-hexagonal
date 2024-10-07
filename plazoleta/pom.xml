@@ -74,7 +74,11 @@
 			<scope>provided</scope>
 		</dependency>
 
-
+		<dependency>
+			<groupId>com.twilio.sdk</groupId>
+			<artifactId>twilio</artifactId>
+			<version>8.26.0</version> 
+		</dependency>
 
 
 		<dependency>

@@ -6,7 +6,7 @@ import com.usuario.usuario.domain.api.IPedidoServicePort;
 import com.usuario.usuario.domain.model.PedidoModel;
 import com.usuario.usuario.domain.spi.IPedidoPersistencePort;
 
-public class PedidoUserCase implements IPedidoServicePort{
+public class PedidoUserCase implements IPedidoServicePort {
     private final IPedidoPersistencePort objectPersistencePort;
 
     public PedidoUserCase(IPedidoPersistencePort objectPersistencePort) {
@@ -21,17 +21,16 @@ public class PedidoUserCase implements IPedidoServicePort{
     @Override
     public List<PedidoModel> getAllObjects() {
         return objectPersistencePort.getAllObjects();
-    } 
+    }
 
     @Override
     public PedidoModel updateObject(PedidoModel objectModel) {
-        return objectPersistencePort.saveObject(objectModel);
+        return objectPersistencePort.updateObject(objectModel);
     }
 
     @Override
-    public  PedidoModel findById(Long id) {
+    public PedidoModel findById(Long id) {
         return objectPersistencePort.findById(id);
     }
 
-      
 }

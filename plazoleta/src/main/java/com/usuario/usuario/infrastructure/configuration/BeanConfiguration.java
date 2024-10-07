@@ -4,6 +4,7 @@ import com.usuario.usuario.domain.api.IUsuarioServicePort;
 import com.usuario.usuario.domain.api.IRestauranteServicePort;
 import com.usuario.usuario.domain.api.IPlatoServicePort;
 import com.usuario.usuario.domain.api.IPedidoServicePort;
+import com.usuario.usuario.application.handler.impl.SmsService;
 import com.usuario.usuario.domain.api.IDetallePedidoServicePort;
 import com.usuario.usuario.domain.spi.IUsuarioPersistencePort;
 import com.usuario.usuario.domain.spi.IRestaurantePersistencePort;
@@ -29,6 +30,7 @@ import com.usuario.usuario.infrastructure.out.jpa.mapper.IPlatoEntityMapper;
 import com.usuario.usuario.infrastructure.out.jpa.repository.IPedidoRepository;
 import com.usuario.usuario.infrastructure.out.jpa.mapper.IPedidoEntityMapper;
 import com.usuario.usuario.infrastructure.out.jpa.repository.IDetallePedidoRepository;
+import com.usuario.usuario.infrastructure.out.jpa.repository.IAuditoriaPedidoRepository;
 import com.usuario.usuario.infrastructure.out.jpa.mapper.IDetallePedidoEntityMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -49,11 +51,11 @@ public class BeanConfiguration {
     private final IPedidoEntityMapper pedidoEntityMapper;
     private final IDetallePedidoRepository detallePedidoRepository;
     private final IDetallePedidoEntityMapper detallePedidoEntityMapper;
-
+    private final IAuditoriaPedidoRepository iAuditoriaPedidoRepository;
 
     @Bean
     public IUsuarioPersistencePort objectPersistencePort() {
-        return new UsuarioJpaAdapter(objectRepository, objectEntityMapper , restTemplate());
+        return new UsuarioJpaAdapter(objectRepository, objectEntityMapper, restTemplate());
     }
 
     @Bean
@@ -61,7 +63,6 @@ public class BeanConfiguration {
         return new UsuarioUseCase(objectPersistencePort());
     }
 
-   
     @Bean
     public IRestaurantePersistencePort restaurantePersistencePort() {
         return new RestauranteJpaAdapter(restauranteRepository, restauranteEntityMapper);
@@ -79,7 +80,7 @@ public class BeanConfiguration {
 
     @Bean
     public IPlatoPersistencePort platoPersistencePort() {
-        return new PlatoJpaAdapter(platoRepository, platoEntityMapper,restauranteRepository);
+        return new PlatoJpaAdapter(platoRepository, platoEntityMapper, restauranteRepository);
     }
 
     @Bean
@@ -87,10 +88,14 @@ public class BeanConfiguration {
         return new PlatoUserCase(platoPersistencePort());
     }
 
+    @Bean
+    public SmsService smsService() {
+        return new SmsService();
+    }
 
     @Bean
     public IPedidoPersistencePort pedidoPersistencePort() {
-        return new PedidoJpaAdapter(pedidoRepository, pedidoEntityMapper);
+        return new PedidoJpaAdapter(pedidoRepository, pedidoEntityMapper, smsService(), iAuditoriaPedidoRepository);
     }
 
     @Bean
@@ -107,6 +112,5 @@ public class BeanConfiguration {
     public IDetallePedidoServicePort detallePedidoServicePort() {
         return new DetallePedidoUserCase(detallePedidoPersistencePort());
     }
-
 
 }

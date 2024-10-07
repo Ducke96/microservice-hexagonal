@@ -2,8 +2,6 @@ package com.usuario.usuario.application.dto.response;
 
 import java.util.List;
 
-import com.usuario.usuario.infrastructure.out.jpa.entity.DetallePedido;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +16,6 @@ public class PedidoResponseDto {
     private int idrestaurante;
     private String estado;
     private String user;
+    private String codigo;
     private List<DetallePedidoResponseDto> detallePedido;
 }

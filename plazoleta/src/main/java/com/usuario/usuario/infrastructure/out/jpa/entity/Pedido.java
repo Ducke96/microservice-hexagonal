@@ -30,6 +30,7 @@ public class Pedido {
     private int idrestaurante;
     private String estado;
     private String user;
+    private String codigo;
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetallePedido> detallePedido;
 

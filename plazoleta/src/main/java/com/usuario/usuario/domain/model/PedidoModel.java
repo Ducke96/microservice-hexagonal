@@ -1,7 +1,5 @@
 package com.usuario.usuario.domain.model;
 
-import com.usuario.usuario.infrastructure.out.jpa.entity.DetallePedido;
-
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -18,5 +16,6 @@ public class PedidoModel {
     private int idrestaurante;
     private String estado;
     private String user;
+    private String codigo;
     private List<DetallePedidoModel> detallePedido;
 }

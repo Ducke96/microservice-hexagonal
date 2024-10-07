@@ -24,11 +24,12 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class PedidosController {
-   
+
     private final IPedidoHandler objectHandler;
 
     @Operation(summary = "Add a new object")
@@ -54,8 +55,6 @@ public class PedidosController {
         return ResponseEntity.ok(objectHandler.getAllObjects());
     }
 
-
-
     @Operation(summary = "Get object by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "object returned by id", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PedidoResponseDto.class)))),
@@ -66,7 +65,6 @@ public class PedidosController {
         return ResponseEntity.ok(objectHandler.findById(id));
     }
 
-
     @Operation(summary = "update a object")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Object created", content = @Content),
@@ -74,13 +72,10 @@ public class PedidosController {
     })
     @PatchMapping(value = "pedido/{id}")
     public ResponseEntity<Void> updateObject(@RequestBody PedidoRequestDto objectRequestDto,
-            @RequestHeader("Authorization") String token,@PathVariable Long id) {
-
+            @RequestHeader("Authorization") String token, @PathVariable Long id) {
+        objectRequestDto.setId(id);
         objectHandler.updateObject(objectRequestDto);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-
-
- 
 }
